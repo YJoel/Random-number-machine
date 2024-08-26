@@ -1,0 +1,64 @@
+class Fibonacci {
+  /**
+   *
+   * @param {Number} _x1
+   * @param {Number} _x2
+   * @param {Number} _modulo
+   */
+  constructor(_x1, _x2, _modulo) {
+    this.x1 = _x1;
+    this.x2 = _x2;
+    this.modulo = _modulo;
+    this.x = [];
+    this.r = [];
+  }
+
+  getX1() {
+    return this.x1;
+  }
+
+  /**
+   *
+   * @param {Number} _x1
+   */
+  setX1(_x1) {
+    this.x1 = _x1;
+  }
+
+  getX2() {
+    return this.x2;
+  }
+
+  /**
+   *
+   * @param {Number} _x2
+   */
+  setX2(_x2) {
+    this.n = _x2;
+  }
+
+  getModulo() {
+    return this.modulo;
+  }
+
+  /**
+   *
+   * @param {Number} _modulo
+   */
+  setModulo(_modulo) {
+    this.modulo = _modulo;
+  }
+
+  generarNumerosAleatorios() {
+    this.x = [this.x1, this.x2];
+    this.r = [];
+    for (let i = 0; i < this.modulo; i++) {
+      let x_i = (this.x[i] + this.x[i + 1]) % this.modulo;
+      this.x.push(x_i);
+      this.r.push(parseFloat((x_i / this.modulo).toFixed(3)));
+    }
+    return this.r;
+  }
+}
+
+export { Fibonacci };
