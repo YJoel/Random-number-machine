@@ -1,0 +1,52 @@
+.body {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+}
+
+.container-presentacion {
+  position: fixed;
+  background-color: gray;
+  display: flex;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.presentacion {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width: 200px;
+  animation: rotar 2s 2 alternate ease-in-out;
+}
+
+.presentacion > .circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.presentacion > .circle:first-child {
+  background-color: black;
+}
+
+.presentacion > .circle:last-child {
+  background-color: white;
+}
+
+@keyframes rotar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translate(50px, 100px);
+  }
+}
