@@ -1,62 +1,445 @@
-<form class="row g-3 col-6" id="congruencialMixto">
-  <span class="h2">GENERADOR CONGRUENCIAL MIXTO</span>
-  <div class="col-md-3">
-    <label for="" class="form-label">Variables Necesarias</label>
-    <input
-      type="text"
-      class="form-control"
-      id="X"
-      name="X"
-      value=""
-      placeholder="X"
-      required
-    />
-  </div>
-  <div class="col-md-3">
-    <label for="" class="form-label">&nbsp;</label>
-    <input
-      type="text"
-      class="form-control"
-      id="a"
-      name="a"
-      value=""
-      placeholder="a"
-      required
-    />
-  </div>
-  <div class="col-md-3">
-    <label for="" class="form-label">&nbsp;</label>
-    <input
-      type="text"
-      class="form-control"
-      id="c"
-      name="c"
-      value=""
-      placeholder="c"
-      required
-    />
-  </div>
-  <div class="col-md-3">
-    <label for="" class="form-label">&nbsp;</label>
-    <div class="input-group">
-      <span class="input-group-text" id="">m</span>
+<div class="row">
+  <form class="row g-4 col-6 m-2" id="congruencialMixto">
+    <span class="h2">GENERADOR CONGRUENCIAL MIXTO</span>
+    <div class="col-md-3">
+      <label for="" class="form-label">Variables</label>
       <input
-        type="text"
-        class="form-control"
-        id="m"
-        name="m"
-        placeholder="Modulo"
-        aria-describedby=""
+        type="number"
+        min="0"
+        class="form-control border-1"
+        id="X"
+        name="X"
+        value=""
+        placeholder="X"
         required
       />
     </div>
+    <div class="col-md-3">
+      <label for="" class="form-label">&nbsp;</label>
+      <input
+        type="number"
+        min="0"
+        class="form-control"
+        id="a"
+        name="a"
+        value=""
+        placeholder="a"
+        required
+      />
+    </div>
+    <div class="col-md-3">
+      <label for="" class="form-label">&nbsp;</label>
+      <input
+        type="number"
+        min="0"
+        class="form-control"
+        id="c"
+        name="c"
+        value=""
+        placeholder="c"
+        required
+      />
+    </div>
+    <div class="col-md-3">
+      <label for="" class="form-label">&nbsp;</label>
+      <div class="input-group">
+        <span class="input-group-text" id="">m</span>
+        <input
+          type="number"
+          min="0"
+          class="form-control"
+          id="m"
+          name="m"
+          placeholder="Modulo"
+          aria-describedby=""
+          required
+        />
+      </div>
+    </div>
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit">
+        Calcular Números aleatorios
+      </button>
+      <button type="button" class="btn btn-success" id="importarExcel">
+        Importar Excel
+      </button>
+      <button type="button" class="btn btn-success disabled" id="exportarExcel">
+        Exportar Excel
+      </button>
+    </div>
+  </form>
+</div>
+<div class="row">
+  <div class="col-6 overflow-y-scroll" style="height: 500px">
+    <table class="table" id="resRandomNumbers"></table>
   </div>
-  <div class="col-12">
-    <button class="btn btn-primary" type="submit">
-      Calcular Números aleatorios
-    </button>
+  <div class="col-4">
+    <div class="h3">Pruebas Estadisticas</div>
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseOne"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+          >
+            Promedios
+          </button>
+        </h2>
+        <div
+          id="collapseOne"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <form action="" class="pruebasEstadisticas" id="promedios">
+              <div class="row">
+                <div class="col">
+                  <button type="submit" class="btn btn-primary">Evaluar</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="refPromedios">Referencia:</label>
+                  <input
+                    type="number"
+                    class="border-0"
+                    value="1.96"
+                    readonly
+                    id="refPromedios"
+                  />
+                </div>
+                <div class="col">
+                  <label for="resPromedios">Resultado</label>
+                  <input type="number" readonly id="resPromedios" />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo"
+            aria-expanded="false"
+            aria-controls="collapseTwo"
+          >
+            Frecuencia
+          </button>
+        </h2>
+        <div
+          id="collapseTwo"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <form action="" class="pruebasEstadisticas" id="frecuencia">
+              <div class="row">
+                <div class="col">
+                  <button type="submit" class="btn btn-primary">Evaluar</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="intervalos">Intervalos:</label>
+                  <input
+                    type="number"
+                    class="border-0"
+                    value="5"
+                    readonly
+                    id="intervalos"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="desconfianza">Desconfianza (%):</label>
+                  <input
+                    type="number"
+                    class="border-0"
+                    value="0.05"
+                    readonly
+                    id="desconfianza"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="estChiCuad">Estadistico Chi Cuadrado:</label>
+                  <input
+                    type="number"
+                    class="border-0"
+                    value="9.49"
+                    readonly
+                    id="estChiCuad"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="row">
+                    <div class="col">
+                      <label for="resValuePromedios">Resultado</label>
+                    </div>
+                    <div class="col">
+                      <input type="number" readonly id="resValuePromedios" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col" id="resFrecuencia"></div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseThree"
+            aria-expanded="false"
+            aria-controls="collapseThree"
+          >
+            Kolmogorov Smirnov
+          </button>
+        </h2>
+        <div
+          id="collapseThree"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <form action="" class="pruebasEstadisticas" id="kolmogorovSmirnov">
+              <div class="row">
+                <div class="col">
+                  <button class="btn btn-primary">Evaluar</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="refKolmogorov">dn:</label>
+                  <input
+                    type="number"
+                    class="border-0"
+                    value="0"
+                    readonly
+                    id="refKolmogorov"
+                  />
+                </div>
+                <div class="col">
+                  <div class="col">
+                    <label for="resKolmogorov">Dn</label>
+                    <input type="number" readonly id="resKolmogorov" />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseFour"
+            aria-expanded="false"
+            aria-controls="collapseThree"
+          >
+            Series
+          </button>
+        </h2>
+        <div
+          id="collapseFour"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <form action="" class="pruebasEstadisticas" id="series">
+              <div class="row">
+                <div class="col">
+                  <button type="submit" class="btn btn-primary">Evaluar</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="intervalosSeries">Intervalos:</label>
+                  <input
+                    type="number"
+                    class="border-0"
+                    value=""
+                    readonly
+                    id="intervalosSeries"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="frecuenciaEsperadaSeries"
+                    >Frecuencia Esperada:</label
+                  >
+                  <input
+                    type="number"
+                    class="border-0"
+                    value=""
+                    readonly
+                    id="frecuenciaEsperadaSeries"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="desconfianzaSeries">Desconfianza (%):</label>
+                  <input
+                    type="number"
+                    class="border-0"
+                    value="0.05"
+                    readonly
+                    id="desconfianzaSeries"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="estChiCuadSeries"
+                    >Estadistico Chi Cuadrado:</label
+                  >
+                  <input
+                    type="number"
+                    class="border-0"
+                    value=""
+                    readonly
+                    id="estChiCuadSeries"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="row">
+                    <div class="col">
+                      <label for="resValueSeries">Resultado</label>
+                    </div>
+                    <div class="col">
+                      <input type="number" readonly id="resValueSeries" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col" id="resSeries"></div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseFive"
+            aria-expanded="false"
+            aria-controls="collapseThree"
+          >
+            Poker
+          </button>
+        </h2>
+        <div
+          id="collapseFive"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <form action="" class="pruebasEstadisticas" id="poker">
+              <div class="row">
+                <div class="col">
+                  <button type="submit" class="btn btn-primary">Evaluar</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="intervalosPoker">Intervalos:</label>
+                  <input
+                    type="number"
+                    class="border-0"
+                    value="7"
+                    readonly
+                    id="intervalosPoker"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="frecuenciaEsperadaPoker"
+                    >Frecuencia Esperada:</label
+                  >
+                </div>
+                <div class="col">
+                  <input
+                    type="text"
+                    class=""
+                    value=""
+                    readonly
+                    id="frecuenciaEsperadaPoker"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="desconfianzaPoker">Desconfianza (%):</label>
+                  <input
+                    type="number"
+                    class="border-0"
+                    value="0.05"
+                    readonly
+                    id="desconfianzaPoker"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="estChiCuadPoker">Estadistico Chi Cuadrado:</label>
+                  <input
+                    type="number"
+                    class="border-0"
+                    value=""
+                    readonly
+                    id="estChiCuadPoker"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="row">
+                    <div class="col">
+                      <label for="resValuePoker">Resultado</label>
+                    </div>
+                    <div class="col">
+                      <input type="number" readonly id="resValuePoker" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col" id="resPoker"></div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</form>
-<div class="col-6">
-  <table class="table" id="resRandomNumbers"></table>
 </div>
