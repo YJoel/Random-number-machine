@@ -12,6 +12,7 @@ import {
 } from "../Api/verificacionHipotesis.js";
 
 let randomNumbers = []; // Se inicializa el arreglo de números aleatorios
+let vDistribucion = [];
 let M = undefined;
 
 document.querySelectorAll(".dropdown-item").forEach((elHTML) => {
@@ -55,210 +56,6 @@ document.querySelectorAll(".dropdown-item").forEach((elHTML) => {
             rNoHTML.render();
           };
 
-          // if (document.forms[0].id == "congruencialMixto") {
-          //   reader.onload = function (event) {
-          //     const data = new Uint8Array(event.target.result);
-          //     const workbook = XLSX.read(data, { type: "array" });
-
-          //     const sheetName = workbook.SheetNames[0];
-          //     const worksheet = workbook.Sheets[sheetName];
-          //     const json = XLSX.utils.sheet_to_json(worksheet);
-
-          //     let x = json[0].X;
-          //     let a = json[0].A;
-          //     let c = json[0].C;
-          //     let m = json[0].M;
-
-          //     document.getElementById("X").value = x;
-          //     document.getElementById("a").value = a;
-          //     document.getElementById("c").value = c;
-          //     document.getElementById("m").value = m;
-
-          //     M = new FactoryMetodos("CMI", [x, a, c, m]).getInstance();
-
-          //     json.forEach((el, i) => {
-          //       if (i != 0) {
-          //         randomNumbers[i - 1] = el.r;
-          //       }
-          //     });
-          //     console.log(randomNumbers);
-
-          //     const rNoHTML = new randomNumbersToHTML(
-          //       M.generarNumerosAleatorios()
-          //     );
-          //     rNoHTML.render();
-
-          //     const buttonExportarExcel =
-          //       document.getElementById("exportarExcel");
-          //     buttonExportarExcel.classList.remove("disabled");
-          //     buttonExportarExcel.removeEventListener(
-          //       "click",
-          //       exportarMixto2,
-          //       true
-          //     );
-          //     buttonExportarExcel.addEventListener(
-          //       "click",
-          //       exportarMixto1,
-          //       true
-          //     );
-          //   };
-          // } else if (document.forms[0].id == "congruencialMultiplicativo") {
-          //   let x = 0;
-          //   let a = 0;
-          //   let m = 0;
-          //   reader.onload = function (event) {
-          //     const data = new Uint8Array(event.target.result);
-          //     const workbook = XLSX.read(data, { type: "array" });
-
-          //     const sheetName = workbook.SheetNames[0];
-          //     const worksheet = workbook.Sheets[sheetName];
-          //     const json = XLSX.utils.sheet_to_json(worksheet);
-
-          //     x = json[0].X;
-          //     a = json[0].A;
-          //     m = json[0].M;
-
-          //     document.getElementById("X").value = x;
-          //     document.getElementById("a").value = a;
-          //     document.getElementById("m").value = m;
-
-          //     M = new FactoryMetodos("CMU", [
-          //       json[0].X,
-          //       json[0].A,
-          //       json[0].M,
-          //     ]).getInstance();
-
-          //     json.forEach((el, i) => {
-          //       if (i != 0) {
-          //         randomNumbers[i - 1] = el.r;
-          //       }
-          //     });
-          //     console.log(randomNumbers);
-
-          //     const rNoHTML = new randomNumbersToHTML(
-          //       M.generarNumerosAleatorios()
-          //     );
-          //     rNoHTML.render();
-
-          //     const buttonExportarExcel =
-          //       document.getElementById("exportarExcel");
-          //     buttonExportarExcel.classList.remove("disabled");
-          //     buttonExportarExcel.removeEventListener(
-          //       "click",
-          //       exportarMultiplicativo2,
-          //       true
-          //     );
-          //     buttonExportarExcel.addEventListener(
-          //       "click",
-          //       exportarMultiplicativo1,
-          //       true
-          //     );
-          //   };
-          // } else if (document.forms[0].id == "cuadradosMedios") {
-          //   reader.onload = function (event) {
-          //     const data = new Uint8Array(event.target.result);
-          //     const workbook = XLSX.read(data, { type: "array" });
-
-          //     const sheetName = workbook.SheetNames[0];
-          //     const worksheet = workbook.Sheets[sheetName];
-          //     const json = XLSX.utils.sheet_to_json(worksheet);
-
-          //     document.getElementById("x0").value = json[0].X0;
-          //     document.getElementById("n").value = json[0].N;
-
-          //     M = new FactoryMetodos("CM", [
-          //       json[0].X0,
-          //       json[0].N,
-          //     ]).getInstance();
-
-          //     json.forEach((el, i) => {
-          //       if (i != 0) {
-          //         randomNumbers[i - 1] = el.M;
-          //       }
-          //     });
-          //     console.log(randomNumbers);
-
-          //     const rNoHTML = new randomNumbersToHTML(
-          //       M.generarNumerosAleatorios()
-          //     );
-          //     rNoHTML.render();
-
-          //     const buttonExportarExcel =
-          //       document.getElementById("exportarExcel");
-          //     buttonExportarExcel.classList.remove("disabled");
-          //     buttonExportarExcel.removeEventListener(
-          //       "click",
-          //       exportarCuadrados2,
-          //       true
-          //     );
-          //     buttonExportarExcel.addEventListener(
-          //       "click",
-          //       exportarCuadrados1,
-          //       true
-          //     );
-          //   };
-          // } else if (document.forms[0].id == "fibonacci") {
-          //   reader.onload = function (event) {
-          //     const data = new Uint8Array(event.target.result);
-          //     const workbook = XLSX.read(data, { type: "array" });
-
-          //     const sheetName = workbook.SheetNames[0];
-          //     const worksheet = workbook.Sheets[sheetName];
-          //     const json = XLSX.utils.sheet_to_json(worksheet);
-
-          //     document.getElementById("x0").value = json[0].X0;
-          //     document.getElementById("x1").value = json[0].A1;
-          //     document.getElementById("m").value = json[0].M;
-
-          //     M = new FactoryMetodos("FI", [
-          //       json[0].X0,
-          //       json[0].X1,
-          //       json[0].M,
-          //     ]).getInstance();
-
-          //     json.forEach((el, i) => {
-          //       if (i != 0) {
-          //         randomNumbers[i - 1] = el.M;
-          //       }
-          //     });
-          //     console.log(randomNumbers);
-
-          //     const rNoHTML = new randomNumbersToHTML(
-          //       M.generarNumerosAleatorios()
-          //     );
-          //     rNoHTML.render();
-          //   };
-          // } else if (document.forms[0].id == "xorShift") {
-          //   reader.onload = function (event) {
-          //     const data = new Uint8Array(event.target.result);
-          //     const workbook = XLSX.read(data, { type: "array" });
-
-          //     const sheetName = workbook.SheetNames[0];
-          //     const worksheet = workbook.Sheets[sheetName];
-          //     const json = XLSX.utils.sheet_to_json(worksheet);
-
-          //     document.getElementById("x0").value = json[0].X0;
-          //     document.getElementById("n").value = json[0].N;
-
-          //     M = new FactoryMetodos("CMI", [
-          //       json[0].X0,
-          //       json[0].N,
-          //     ]).getInstance();
-
-          //     json.forEach((el, i) => {
-          //       if (i != 0) {
-          //         randomNumbers[i - 1] = el.M;
-          //       }
-          //     });
-          //     console.log(randomNumbers);
-
-          //     const rNoHTML = new randomNumbersToHTML(
-          //       M.generarNumerosAleatorios()
-          //     );
-          //     rNoHTML.render();
-          //   };
-          // }
-
           reader.readAsArrayBuffer(file);
 
           // PRUEBAS ESTADISTICAS
@@ -270,6 +67,38 @@ document.querySelectorAll(".dropdown-item").forEach((elHTML) => {
             );
             forms.addEventListener("submit", pruebasEstadisticasImportar, true);
           });
+
+          // DISTRIBUCIONES
+
+          const distribuciones = document.createElement("div");
+          distribuciones.id = "distribuciones";
+          distribuciones.classList.add("row");
+          document.getElementById("body").append(distribuciones);
+          if (distribuciones.parentNode.children.length == 4) {
+            distribuciones.parentNode.removeChild(
+              distribuciones.parentNode.children[3]
+            );
+          }
+
+          redir.setDestino(document.getElementById("distribuciones"));
+          redir.setRuta("./templateDistribuciones/distribuciones.html");
+          redir.realizarPeticion();
+
+          setTimeout(() => {
+            let distribucionesHTML = document.querySelectorAll(".distribucion");
+            distribucionesHTML.forEach((distribucion) => {
+              distribucion.removeEventListener(
+                "submit",
+                distribucionesSubmit,
+                true
+              );
+              distribucion.addEventListener(
+                "submit",
+                distribucionesImportar,
+                true
+              );
+            });
+          }, 500);
         });
 
         const lim = 4;
@@ -462,7 +291,8 @@ document.querySelectorAll(".dropdown-item").forEach((elHTML) => {
             datos.get("c"),
             datos.get("m"),
           ]).getInstance();
-          const rNoHTML = new randomNumbersToHTML(M.generarNumerosAleatorios());
+          randomNumbers = M.generarNumerosAleatorios();
+          const rNoHTML = new randomNumbersToHTML(randomNumbers);
           rNoHTML.render();
         } else if (document.forms[0].id == "congruencialMultiplicativo") {
           M = new FactoryMetodos("CMU", [
@@ -470,55 +300,33 @@ document.querySelectorAll(".dropdown-item").forEach((elHTML) => {
             datos.get("a"),
             datos.get("m"),
           ]).getInstance();
-          const rNoHTML = new randomNumbersToHTML(M.generarNumerosAleatorios());
+          randomNumbers = M.generarNumerosAleatorios();
+          const rNoHTML = new randomNumbersToHTML(randomNumbers);
           rNoHTML.render();
-
-          const buttonExportarExcel = document.getElementById("exportarExcel");
-          buttonExportarExcel.classList.remove("disabled");
-          buttonExportarExcel.removeEventListener(
-            "click",
-            exportarMultiplicativo1,
-            true
-          );
-          buttonExportarExcel.addEventListener(
-            "click",
-            exportarMultiplicativo2,
-            true
-          );
         } else if (document.forms[0].id == "cuadradosMedios") {
           M = new FactoryMetodos("CME", [
             datos.get("x0"),
             datos.get("n"),
           ]).getInstance();
-          const rNoHTML = new randomNumbersToHTML(M.generarNumerosAleatorios());
+          randomNumbers = M.generarNumerosAleatorios();
+          const rNoHTML = new randomNumbersToHTML(randomNumbers);
           rNoHTML.render();
-
-          const buttonExportarExcel = document.getElementById("exportarExcel");
-          buttonExportarExcel.classList.remove("disabled");
-          buttonExportarExcel.removeEventListener(
-            "click",
-            exportarCuadrados1,
-            true
-          );
-          buttonExportarExcel.addEventListener(
-            "click",
-            exportarCuadrados2,
-            true
-          );
         } else if (document.forms[0].id == "fibonacci") {
           M = new FactoryMetodos("FI", [
             datos.get("x0"),
             datos.get("x1"),
             datos.get("m"),
           ]).getInstance();
-          const rNoHTML = new randomNumbersToHTML(M.generarNumerosAleatorios());
+          randomNumbers = M.generarNumerosAleatorios();
+          const rNoHTML = new randomNumbersToHTML(randomNumbers);
           rNoHTML.render();
         } else if (document.forms[0].id == "xorShift") {
           M = new FactoryMetodos("XS", [
             datos.get("x0"),
             datos.get("n"),
           ]).getInstance();
-          const rNoHTML = new randomNumbersToHTML(M.generarNumerosAleatorios());
+          randomNumbers = M.generarNumerosAleatorios();
+          const rNoHTML = new randomNumbersToHTML(randomNumbers);
           rNoHTML.render();
         }
 
@@ -535,18 +343,37 @@ document.querySelectorAll(".dropdown-item").forEach((elHTML) => {
           );
           forms.addEventListener("submit", pruebasEstadisticasSubmit, true);
         });
+
+        // DISTRIBUCIONES
+
+        const distribuciones = document.createElement("div");
+        distribuciones.id = "distribuciones";
+        distribuciones.classList.add("row");
+        document.getElementById("body").append(distribuciones);
+        if (distribuciones.parentNode.children.length == 4) {
+          distribuciones.parentNode.removeChild(
+            distribuciones.parentNode.children[3]
+          );
+        }
+
+        redir.setDestino(document.getElementById("distribuciones"));
+        redir.setRuta("./templateDistribuciones/distribuciones.html");
+        redir.realizarPeticion();
+
+        setTimeout(() => {
+          let distribucionesHTML = document.querySelectorAll(".distribucion");
+          distribucionesHTML.forEach((distribucion) => {
+            distribucion.removeEventListener(
+              "submit",
+              distribucionesImportar,
+              true
+            );
+            distribucion.addEventListener("submit", distribucionesSubmit, true);
+          });
+        }, 500);
       });
     }, 500);
   });
-});
-
-document.getElementById("inicio").addEventListener("click", (elHTML) => {
-  elHTML.preventDefault();
-  const redir = new RedireccionPaginas(
-    `${elHTML.target.parentNode.href}`,
-    document.getElementById("body")
-  );
-  redir.realizarPeticion();
 });
 
 function analizarDigitosCadena(numeroStr) {
@@ -1193,6 +1020,307 @@ function pruebasEstadisticasSubmit(form) {
       resValuePoker.classList.remove("text-bg-success");
     }
   }
+}
+
+function distribucionesImportar(form) {
+  form.preventDefault();
+
+  vDistribucion = [];
+  let id = form.target.id;
+  console.log(id);
+  if (id == "dExponencial") {
+    let datos = new FormData(form.target);
+    let seleccionMedia = parseInt(datos.get("mediaExp"));
+    let mediaExp = parseFloat(datos.get("valorExponencial"));
+
+    if (seleccionMedia == 1) {
+      for (let i in randomNumbers) {
+        if (randomNumbers[i] != 0) {
+          vDistribucion[i] = parseFloat(
+            (-mediaExp * Math.log(randomNumbers[i])).toFixed(4)
+          );
+        } else {
+          vDistribucion[i] = mediaExp;
+        }
+      }
+    } else {
+      for (let i in randomNumbers) {
+        if (randomNumbers[i] != 0) {
+          vDistribucion[i] = parseFloat(
+            ((-1 / mediaExp) * Math.log(randomNumbers[i])).toFixed(4)
+          );
+        } else {
+          vDistribucion[i] = parseFloat((1 / mediaExp).toFixed(4));
+        }
+      }
+    }
+
+    // EXPORTAR A HTML LAS VARIABLES ALEATORIAS
+    exportarXLSXConVariablesAleatorias(
+      randomNumbers,
+      vDistribucion,
+      "Variable Exponencial",
+      form.target
+    );
+  } else if (id == "dUniforme") {
+    let datos = new FormData(form.target);
+    let limInf = parseFloat(datos.get("limInf"));
+    let limSup = parseFloat(datos.get("limSup"));
+
+    let variableUniforme = [];
+    for (let i in randomNumbers) {
+      variableUniforme[i] = limInf + (limSup - limInf) * randomNumbers[i];
+    }
+
+    exportarXLSXConVariablesAleatorias(
+      randomNumbers,
+      variableUniforme,
+      "Variable Uniforme",
+      form.target
+    );
+  } else if (id == "dNormal") {
+  } else if (id == "dPoisson") {
+    let datos = new FormData(form.target);
+    let mediaPoisson = parseFloat(datos.get("valorPoisson"));
+
+    let numeroIntervaloPoisson = mediaPoisson * 3;
+
+    let variablePoisson = [];
+    for (let i = 0; i < numeroIntervaloPoisson; i++) {
+      variablePoisson[i] =
+        (Math.E ** -mediaPoisson * mediaPoisson ** i) / factorial(i);
+    }
+
+    let variablePoissonAcumulada = [];
+    for (let i = 0, j = -1; i < variablePoisson.length; i++, j++) {
+      if (i == 0) {
+        variablePoissonAcumulada[i] = variablePoisson[i];
+      } else {
+        variablePoissonAcumulada[i] =
+          variablePoissonAcumulada[j] + variablePoisson[i];
+      }
+    }
+
+    let variablePoissonConjunto = [];
+
+    for (let r in randomNumbers) {
+      for (let inter in variablePoissonAcumulada) {
+        if (inter == 0) {
+          if (
+            randomNumbers[r] >= 0 &&
+            randomNumbers[r] < variablePoissonAcumulada[inter]
+          ) {
+            variablePoissonConjunto[r] = inter;
+            break;
+          }
+        } else {
+          if (
+            randomNumbers[r] >= variablePoissonAcumulada[inter - 1] &&
+            randomNumbers[r] < variablePoissonAcumulada[inter]
+          ) {
+            variablePoissonConjunto[r] = inter;
+            break;
+          }
+        }
+      }
+    }
+
+    // EXPORTAR A HTML LAS VARIABLES ALEATORIAS
+    exportarXLSXConVariablesAleatorias(
+      randomNumbers,
+      variablePoissonConjunto,
+      "Variable Poisson",
+      form.target
+    );
+  }
+}
+
+function distribucionesSubmit(form) {
+  form.preventDefault();
+  console.log(randomNumbers);
+  vDistribucion = [];
+  let id = form.target.id;
+  console.log(id);
+  if (id == "dExponencial") {
+    let datos = new FormData(form.target);
+    let seleccionMedia = parseInt(datos.get("mediaExp"));
+    let mediaExp = parseFloat(datos.get("valorExponencial"));
+
+    if (seleccionMedia == 1) {
+      for (let i in randomNumbers) {
+        if (randomNumbers[i] != 0) {
+          vDistribucion[i] = parseFloat(
+            (-mediaExp * Math.log(randomNumbers[i])).toFixed(4)
+          );
+        } else {
+          vDistribucion[i] = mediaExp;
+        }
+      }
+    } else {
+      for (let i in randomNumbers) {
+        if (randomNumbers[i] != 0) {
+          vDistribucion[i] = parseFloat(
+            ((-1 / mediaExp) * Math.log(randomNumbers[i])).toFixed(4)
+          );
+        } else {
+          vDistribucion[i] = parseFloat((1 / mediaExp).toFixed(4));
+        }
+      }
+    }
+
+    // EXPORTAR A HTML LAS VARIABLES ALEATORIAS
+    exportarXLSXConVariablesAleatorias(
+      randomNumbers,
+      vDistribucion,
+      "Variable Exponencial",
+      form.target
+    );
+  } else if (id == "dUniforme") {
+    let datos = new FormData(form.target);
+    let limInf = parseFloat(datos.get("limInf"));
+    let limSup = parseFloat(datos.get("limSup"));
+
+    let variableUniforme = [];
+    for (let i in randomNumbers) {
+      variableUniforme[i] = limInf + (limSup - limInf) * randomNumbers[i];
+    }
+
+    exportarXLSXConVariablesAleatorias(
+      randomNumbers,
+      variableUniforme,
+      "Variable Uniforme",
+      form.target
+    );
+  } else if (id == "dNormal") {
+  } else if (id == "dPoisson") {
+    let datos = new FormData(form.target);
+    let mediaPoisson = parseFloat(datos.get("valorPoisson"));
+
+    let numeroIntervaloPoisson = mediaPoisson * 3;
+
+    let variablePoisson = [];
+    for (let i = 0; i < numeroIntervaloPoisson; i++) {
+      variablePoisson[i] =
+        (Math.E ** -mediaPoisson * mediaPoisson ** i) / factorial(i);
+    }
+
+    let variablePoissonAcumulada = [];
+    for (let i = 0, j = -1; i < variablePoisson.length; i++, j++) {
+      if (i == 0) {
+        variablePoissonAcumulada[i] = variablePoisson[i];
+      } else {
+        variablePoissonAcumulada[i] =
+          variablePoissonAcumulada[j] + variablePoisson[i];
+      }
+    }
+
+    let variablePoissonConjunto = [];
+
+    for (let r in randomNumbers) {
+      for (let inter in variablePoissonAcumulada) {
+        if (inter == 0) {
+          if (
+            randomNumbers[r] >= 0 &&
+            randomNumbers[r] < variablePoissonAcumulada[inter]
+          ) {
+            variablePoissonConjunto[r] = inter;
+            break;
+          }
+        } else {
+          if (
+            randomNumbers[r] >= variablePoissonAcumulada[inter - 1] &&
+            randomNumbers[r] < variablePoissonAcumulada[inter]
+          ) {
+            variablePoissonConjunto[r] = inter;
+            break;
+          }
+        }
+      }
+    }
+
+    // EXPORTAR A HTML LAS VARIABLES ALEATORIAS
+    exportarXLSXConVariablesAleatorias(
+      randomNumbers,
+      variablePoissonConjunto,
+      "Variable Poisson",
+      form.target
+    );
+  }
+}
+
+function factorial(r) {
+  if (r == 0 || r == 1) {
+    return 1;
+  } else {
+    for (let i = r - 1; i > 0; i--) {
+      r *= i;
+    }
+    return r;
+  }
+}
+
+function exportarXLSXConVariablesAleatorias(
+  randomNumbers,
+  randomVariables,
+  _text,
+  _target
+) {
+  // EXPORTAR A HTML LAS VARIABLES ALEATORIAS
+
+  let table = document.createElement("table");
+
+  let cabeceras = ["#", "Número Aleatorio", _text];
+  let tH = document.createElement("tr");
+  cabeceras.forEach((el) => {
+    let td = document.createElement("td");
+    td.innerHTML = el;
+    tH.append(td);
+  });
+  table.append(tH);
+
+  randomVariables.forEach((el, i) => {
+    let tr = document.createElement("tr");
+    let td1 = document.createElement("td");
+    let td2 = document.createElement("td");
+    let td3 = document.createElement("td");
+    td1.innerHTML = i + 1;
+    td2.innerHTML = randomNumbers[i];
+    td3.innerHTML = el;
+    tr.append(td1);
+    tr.append(td2);
+    tr.append(td3);
+    table.append(tr);
+  });
+
+  _target.parentNode.children[1].innerHTML = "";
+  _target.parentNode.children[1].append(table);
+  _target.parentNode.children[1].classList.add("overflow-y-scroll");
+  _target.parentNode.children[1].style.height = "500px";
+
+  const rows = [];
+
+  randomNumbers.forEach((el, i) => {
+    rows[i] = {
+      "#": i + 1,
+      r: el,
+      v: randomVariables[i],
+    };
+  });
+
+  /* generate worksheet and workbook */
+  const worksheetEx = XLSX.utils.json_to_sheet(rows);
+  const workbookEx = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbookEx, worksheetEx, document.forms[0].id);
+
+  /* fix headers */
+  XLSX.utils.sheet_add_aoa(worksheetEx, [["#", "r", _text]], {
+    origin: "A1",
+  });
+
+  /* create an XLSX file and try to save to Presidents.xlsx */
+  XLSX.writeFile(workbookEx, `${_text}.xlsx`, {
+    compression: true,
+  });
 }
 
 async function exportarXLSX() {

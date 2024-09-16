@@ -24,6 +24,23 @@ class RedireccionPaginas {
   setRuta(_ruta) {
     this.ruta = _ruta;
   }
+
+  /**
+   *
+   * @returns retorna el destino suministrado
+   */
+  getDestino() {
+    return this.destino;
+  }
+
+  /**
+   *
+   * @param {String} _destino
+   */
+  setDestino(_destino) {
+    this.destino = _destino;
+  }
+
   /**
    *
    * @returns retorna la información contenida en el documento
