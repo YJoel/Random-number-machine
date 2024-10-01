@@ -396,10 +396,10 @@ document.querySelectorAll(".dropdown-item").forEach((elHTML) => {
         });
         div.innerHTML = message;
 
-        document.getElementById("body").append(div);
+        document.body.append(div);
         setTimeout(function removerDiv() {
           document
-            .getElementById("body")
+            .body
             .removeChild(
               document.getElementById("body").children[
                 document.getElementById("body").children.length - 1
