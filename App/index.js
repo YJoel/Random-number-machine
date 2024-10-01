@@ -86,13 +86,13 @@ document.querySelectorAll(".dropdown-item").forEach((elHTML) => {
           });
           div.innerHTML = message;
 
-          document.getElementById("body").append(div);
+          document.body.append(div);
           setTimeout(function removerDiv() {
             document
-              .getElementById("body")
+              .body
               .removeChild(
-                document.getElementById("body").children[
-                  document.getElementById("body").children.length - 1
+                document.body.children[
+                  document.body.children.length - 1
                 ]
               );
           }, 3000);
@@ -398,13 +398,9 @@ document.querySelectorAll(".dropdown-item").forEach((elHTML) => {
 
         document.body.append(div);
         setTimeout(function removerDiv() {
-          document
-            .body
-            .removeChild(
-              document.getElementById("body").children[
-                document.getElementById("body").children.length - 1
-              ]
-            );
+          document.body.removeChild(
+            document.body.children[document.body.children.length - 1]
+          );
         }, 3000);
 
         const buttonExportarExcel = document.getElementById("exportarExcel");
