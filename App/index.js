@@ -2,6 +2,7 @@ import {
   FactoryMetodos,
   cousinNumbers,
   chiCuadrado,
+  periodoCompleto,
 } from "../Api/numerosPseudoaleatorios.js";
 import { randomNumbersToHTML } from "../Api/domain/randomNumbersToHTML/index.js";
 import { RedireccionPaginas } from "../Api/domain/redireccionPaginas/index.js";
@@ -58,6 +59,44 @@ document.querySelectorAll(".dropdown-item").forEach((elHTML) => {
 
           reader.readAsArrayBuffer(file);
 
+          let message = "";
+          let classList = [
+            "position-absolute",
+            "bottom-0",
+            "end-0",
+            "p-2",
+            "text-light",
+          ];
+          let item = randomNumbers.find((el, index, r) => {
+            return r[0] == r[index + 1];
+          });
+          if (item === undefined) {
+            console.log("Tiene Periodo Completo");
+            message = "Tiene Periodo Completo";
+            classList.push("bg-success");
+          } else {
+            console.log(" NO Tiene Periodo Completo");
+            message = "No tiene Periodo Completo";
+            classList.push("bg-danger");
+          }
+
+          const div = document.createElement("div");
+          classList.forEach((el) => {
+            div.classList.add(el);
+          });
+          div.innerHTML = message;
+
+          document.getElementById("body").append(div);
+          setTimeout(function removerDiv() {
+            document
+              .getElementById("body")
+              .removeChild(
+                document.getElementById("body").children[
+                  document.getElementById("body").children.length - 1
+                ]
+              );
+          }, 3000);
+
           // PRUEBAS ESTADISTICAS
           document.querySelectorAll(".pruebasEstadisticas").forEach((forms) => {
             forms.removeEventListener(
@@ -98,7 +137,7 @@ document.querySelectorAll(".dropdown-item").forEach((elHTML) => {
                 true
               );
             });
-          }, 500);
+          }, 1000);
         });
 
         const lim = 4;
@@ -330,6 +369,44 @@ document.querySelectorAll(".dropdown-item").forEach((elHTML) => {
           rNoHTML.render();
         }
 
+        let message = "";
+        let classList = [
+          "position-absolute",
+          "bottom-0",
+          "end-0",
+          "p-2",
+          "text-light",
+        ];
+        let item = randomNumbers.find((el, index, r) => {
+          return r[0] == r[index + 1];
+        });
+        if (item === undefined) {
+          console.log("Tiene Periodo Completo");
+          message = "Tiene Periodo Completo";
+          classList.push("bg-success");
+        } else {
+          console.log(" NO Tiene Periodo Completo");
+          message = "No tiene Periodo Completo";
+          classList.push("bg-danger");
+        }
+
+        const div = document.createElement("div");
+        classList.forEach((el) => {
+          div.classList.add(el);
+        });
+        div.innerHTML = message;
+
+        document.getElementById("body").append(div);
+        setTimeout(function removerDiv() {
+          document
+            .getElementById("body")
+            .removeChild(
+              document.getElementById("body").children[
+                document.getElementById("body").children.length - 1
+              ]
+            );
+        }, 3000);
+
         const buttonExportarExcel = document.getElementById("exportarExcel");
         buttonExportarExcel.classList.remove("disabled");
         buttonExportarExcel.addEventListener("click", exportarXLSX, true);
@@ -370,7 +447,7 @@ document.querySelectorAll(".dropdown-item").forEach((elHTML) => {
             );
             distribucion.addEventListener("submit", distribucionesSubmit, true);
           });
-        }, 500);
+        }, 1000);
       });
     }, 500);
   });
@@ -1024,10 +1101,8 @@ function pruebasEstadisticasSubmit(form) {
 
 function distribucionesImportar(form) {
   form.preventDefault();
-
   vDistribucion = [];
   let id = form.target.id;
-  console.log(id);
   if (id == "dExponencial") {
     let datos = new FormData(form.target);
     let seleccionMedia = parseInt(datos.get("mediaExp"));
@@ -1086,37 +1161,34 @@ function distribucionesImportar(form) {
     let numeroIntervaloPoisson = mediaPoisson * 3;
 
     let variablePoisson = [];
-    for (let i = 0; i < numeroIntervaloPoisson; i++) {
-      variablePoisson[i] =
-        (Math.E ** -mediaPoisson * mediaPoisson ** i) / factorial(i);
-    }
-
-    let variablePoissonAcumulada = [];
-    for (let i = 0, j = -1; i < variablePoisson.length; i++, j++) {
+    for (var i = 0; i < numeroIntervaloPoisson; i++) {
       if (i == 0) {
-        variablePoissonAcumulada[i] = variablePoisson[i];
+        variablePoisson[i] = poisson(i, mediaPoisson);
       } else {
-        variablePoissonAcumulada[i] =
-          variablePoissonAcumulada[j] + variablePoisson[i];
+        let val = variablePoisson[i - 1] + poisson(i, mediaPoisson);
+        if (val < 0.999999) {
+          variablePoisson[i] =
+            variablePoisson[i - 1] + poisson(i, mediaPoisson);
+        }
       }
     }
 
     let variablePoissonConjunto = [];
 
     for (let r in randomNumbers) {
-      for (let inter in variablePoissonAcumulada) {
+      for (let inter in variablePoisson) {
         if (inter == 0) {
           if (
             randomNumbers[r] >= 0 &&
-            randomNumbers[r] < variablePoissonAcumulada[inter]
+            randomNumbers[r] < variablePoisson[inter]
           ) {
             variablePoissonConjunto[r] = inter;
             break;
           }
         } else {
           if (
-            randomNumbers[r] >= variablePoissonAcumulada[inter - 1] &&
-            randomNumbers[r] < variablePoissonAcumulada[inter]
+            randomNumbers[r] >= variablePoisson[inter - 1] &&
+            randomNumbers[r] < variablePoisson[inter]
           ) {
             variablePoissonConjunto[r] = inter;
             break;
@@ -1137,10 +1209,8 @@ function distribucionesImportar(form) {
 
 function distribucionesSubmit(form) {
   form.preventDefault();
-  console.log(randomNumbers);
   vDistribucion = [];
   let id = form.target.id;
-  console.log(id);
   if (id == "dExponencial") {
     let datos = new FormData(form.target);
     let seleccionMedia = parseInt(datos.get("mediaExp"));
@@ -1199,37 +1269,34 @@ function distribucionesSubmit(form) {
     let numeroIntervaloPoisson = mediaPoisson * 3;
 
     let variablePoisson = [];
-    for (let i = 0; i < numeroIntervaloPoisson; i++) {
-      variablePoisson[i] =
-        (Math.E ** -mediaPoisson * mediaPoisson ** i) / factorial(i);
-    }
-
-    let variablePoissonAcumulada = [];
-    for (let i = 0, j = -1; i < variablePoisson.length; i++, j++) {
+    for (var i = 0; i < numeroIntervaloPoisson; i++) {
       if (i == 0) {
-        variablePoissonAcumulada[i] = variablePoisson[i];
+        variablePoisson[i] = poisson(i, mediaPoisson);
       } else {
-        variablePoissonAcumulada[i] =
-          variablePoissonAcumulada[j] + variablePoisson[i];
+        let val = variablePoisson[i - 1] + poisson(i, mediaPoisson);
+        if (val < 0.999999) {
+          variablePoisson[i] =
+            variablePoisson[i - 1] + poisson(i, mediaPoisson);
+        }
       }
     }
 
     let variablePoissonConjunto = [];
 
     for (let r in randomNumbers) {
-      for (let inter in variablePoissonAcumulada) {
+      for (let inter in variablePoisson) {
         if (inter == 0) {
           if (
             randomNumbers[r] >= 0 &&
-            randomNumbers[r] < variablePoissonAcumulada[inter]
+            randomNumbers[r] < variablePoisson[inter]
           ) {
             variablePoissonConjunto[r] = inter;
             break;
           }
         } else {
           if (
-            randomNumbers[r] >= variablePoissonAcumulada[inter - 1] &&
-            randomNumbers[r] < variablePoissonAcumulada[inter]
+            randomNumbers[r] >= variablePoisson[inter - 1] &&
+            randomNumbers[r] < variablePoisson[inter]
           ) {
             variablePoissonConjunto[r] = inter;
             break;
@@ -1248,15 +1315,20 @@ function distribucionesSubmit(form) {
   }
 }
 
-function factorial(r) {
-  if (r == 0 || r == 1) {
+function poisson(k, landa) {
+  let exponentialPower = Math.pow(Math.E, -landa); // negative power k
+  let landaPowerK = Math.pow(landa, k); // Landa elevated k
+  let numerator = exponentialPower * landaPowerK;
+  let denominator = factorial(k); // factorial of k.
+
+  return numerator / denominator;
+}
+
+function factorial(x) {
+  if (x == 0) {
     return 1;
-  } else {
-    for (let i = r - 1; i > 0; i--) {
-      r *= i;
-    }
-    return r;
   }
+  return x * factorial(x - 1);
 }
 
 function exportarXLSXConVariablesAleatorias(
