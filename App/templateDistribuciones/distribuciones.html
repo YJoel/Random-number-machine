@@ -198,4 +198,62 @@
       </div>
     </div>
   </div>
+  <div class="col-3">
+    <div class="accordion" id="distribucionNormal">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#normal"
+            aria-expanded="true"
+            aria-controls="normal"
+          >
+            Distribución de Normal
+          </button>
+        </h2>
+        <div
+          id="normal"
+          class="accordion-collapse collapse show"
+          data-bs-parent="#distribucionNormal"
+        >
+          <div class="accordion-body">
+            <form action="" class="distribucion" id="dNormal">
+              <div class="row">
+                <label for="valorNormal" class="form-label">Variables</label>
+                <div class="col">
+                  <div class="input-group">
+                    <span class="input-group-text">[Media, Desv]</span>
+                    <input
+                      type="number"
+                      aria-label="First name"
+                      class="form-control"
+                      id="mu"
+                      name="mu"
+                    />
+                    <input
+                      type="number"
+                      aria-label="Last name"
+                      class="form-control"
+                      id="sigma"
+                      name="sigma"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <button type="submit" class="btn btn-primary mt-3">
+                    Generar Variables Aleatorias
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div class="result">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -88,13 +88,9 @@ document.querySelectorAll(".dropdown-item").forEach((elHTML) => {
 
           document.body.append(div);
           setTimeout(function removerDiv() {
-            document
-              .body
-              .removeChild(
-                document.body.children[
-                  document.body.children.length - 1
-                ]
-              );
+            document.body.removeChild(
+              document.body.children[document.body.children.length - 1]
+            );
           }, 3000);
 
           // PRUEBAS ESTADISTICAS
@@ -1258,6 +1254,23 @@ function distribucionesSubmit(form) {
       form.target
     );
   } else if (id == "dNormal") {
+    let datos = new FormData(form.target);
+    let mu = parseFloat(datos.get("mu"));
+    let sigma = parseFloat(datos.get("sigma"));
+
+    let variableNormal = [];
+    for (let i = 0; i < randomNumbers.length; i += 2) {
+      let [Z0, Z1] = boxMullerTransform(randomNumbers[i], randomNumbers[i + 1]);
+      variableNormal[i] = mu + sigma * Z0;
+      variableNormal[i + 1] = mu + sigma * Z1;
+    }
+
+    exportarXLSXConVariablesAleatorias(
+      randomNumbers,
+      variableNormal,
+      "Variable Normal",
+      form.target
+    );
   } else if (id == "dPoisson") {
     let datos = new FormData(form.target);
     let mediaPoisson = parseFloat(datos.get("valorPoisson"));
@@ -1415,4 +1428,15 @@ async function exportarXLSX() {
   XLSX.writeFile(workbookEx, "randomNumbers.xlsx", {
     compression: true,
   });
+}
+
+function boxMullerTransform(U1, U2) {
+  let Z0 = Math.sqrt(-2.0 * Math.log(U1)) * Math.cos(2.0 * Math.PI * U2);
+  let Z1 = Math.sqrt(-2.0 * Math.log(U1)) * Math.sin(2.0 * Math.PI * U2);
+
+  return [Z0, Z1];
+}
+
+function normalRandom(mu, sigma) {
+  return; // Puedes usar Z1 si necesitas otra variable independiente
 }
